@@ -20,12 +20,12 @@ class CommandHandler implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(command.getName().equals("mcgenshin")){
-            sender.sendMessage("§e=================");
+            sender.sendMessage("§e==================");
             sender.sendMessage("§6MCGenshin插件 v1.0");
             sender.sendMessage("§6作者 tk_sky");
             sender.sendMessage("§6博客：tk.mcyou.cn");
             sender.sendMessage("§6感谢Mcyouyou公益群组服的支持");
-            sender.sendMessage("§e=================");
+            sender.sendMessage("§e==================");
         }
 
         if(command.getName().equals("givevision")){
