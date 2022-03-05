@@ -1,6 +1,5 @@
 package cn.mcyou.tk.MCGenshin;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;

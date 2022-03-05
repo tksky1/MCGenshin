@@ -1,6 +1,5 @@
 package cn.mcyou.tk.MCGenshin;
 
-import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -86,8 +85,9 @@ public class Checker {
                 elements.set(4,elements.get(4) - Math.min(elements.get(4),elements.get(1)));
                 if(elements.owner.getType()!= EntityType.ENDERMAN){
                     elements.owner.playEffect(EntityEffect.HURT_EXPLOSION);
+                    ((LivingEntity)elements.owner).damage(4);
                     for(Entity e: elements.owner.getNearbyEntities(1,1,1)){
-                        if(damager.getType()!=EntityType.PLAYER){
+                        if(e.getType()!=EntityType.PLAYER){
                             LivingEntity livingEntity = (LivingEntity)e;
                             livingEntity.damage(4);
                         }else
