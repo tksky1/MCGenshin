@@ -58,6 +58,10 @@ public class EventHandler implements Listener{
                     boolean hasFire = Main.entityElementsMap.get(e.getDamager()).get(1) > 0;
                     double newDamage = Checker.check(Main.entityElementsMap.get(e.getEntity()),e.getDamage(),50,hasFire,e.getDamager());
                     if(newDamage>0) e.setDamage(newDamage);
+                    if(e.getDamager().getType()==EntityType.ARROW){
+                        Main.activeElements.remove(Main.entityElementsMap.get(e.getDamager()));
+                        Main.entityElementsMap.remove(e.getDamager());
+                    }
                 }
             }
         }
