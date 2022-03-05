@@ -49,7 +49,6 @@ public class Vision {
         tmp = lores.get(start+4);
         tmp = tmp.substring(7);
         vision.elementPower = Integer.parseInt(tmp);
-        Bukkit.broadcastMessage("amount"+vision.amount+"cd"+ vision.cd+"ep"+ vision.elementPower);
         return vision;
     }
 }

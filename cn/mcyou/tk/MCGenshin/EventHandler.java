@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
@@ -47,7 +46,6 @@ public class EventHandler implements Listener{
                     //下面要检查会否发生反应
             boolean hasFire = vision.element == 1;
             double newDamage = Checker.check(Main.entityElementsMap.get(e.getEntity()),e.getDamage(),vision.elementPower,hasFire,e.getDamager());
-            Bukkit.broadcastMessage("元素伤害："+newDamage+"damage"+e.getDamage());
             if(newDamage>0) e.setDamage(newDamage);
         }else{
             //非玩家攻击了实体或玩家
@@ -100,10 +98,6 @@ public class EventHandler implements Listener{
             Elements tmp = new Elements(e.getEntity());
             tmp.set(1,50);
             Elements.give(e.getEntity(),tmp,true,false);
-        }
-
-        if(e.getCause()== EntityDamageEvent.DamageCause.BLOCK_EXPLOSION){
-            e.setDamage(4);
         }
     }
 

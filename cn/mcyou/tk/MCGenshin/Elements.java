@@ -103,7 +103,6 @@ public class Elements {
         String s="";
         for(int i = 1;i<=7;i++)
             if(tmp.get(i)>0)  s=s+i;
-        Bukkit.broadcastMessage(entity.getName()+ "附上元素"+s);
     }
 
     public int sub(int element, int amount){
