@@ -38,8 +38,8 @@ class CommandHandler implements CommandExecutor {
                 int element = random.nextInt(6)+1;
                 while(element == 5) element = random.nextInt(6)+1;
                 int amount = random.nextInt(51)+25;
-                double cd = (double) amount/25;
-                int elementPower = random.nextInt(100)+1;
+                double cd = (double) amount/25 - 0.5;
+                int elementPower = random.nextInt(51)+25;
                 Vision newVision = new Vision(element, amount + random.nextInt(11)-5, cd+ random.nextDouble()-0.5, elementPower);
                 ItemStack item = new ItemStack(Material.SUNFLOWER);
                 ItemMeta meta = item.getItemMeta();

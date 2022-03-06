@@ -3,6 +3,8 @@ package cn.mcyou.tk.MCGenshin;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -42,6 +44,7 @@ public class Elements {
             }
         }
         if(!s.equals("")){
+            s = s.substring(0,s.length()-1);
             entity.setCustomName(s);
             entity.setCustomNameVisible(true);
             if(entity instanceof Player){
@@ -73,6 +76,7 @@ public class Elements {
     }
 
     static void give(Entity entity, Elements elements, boolean setMode, Boolean unCheck){
+        if(!(entity instanceof LivingEntity)) return;
         for(int i=1;i<=7;i++){
             if(elements.get(i)>100) elements.set(i,100);
         }
@@ -94,6 +98,9 @@ public class Elements {
                 else
                     tmp.set(i,tmp.get(i)+elements.get(i));
             }
+        for(int i=1;i<=7;i++){
+            if(elements.get(i)>100) elements.set(i,100);
+        }
         Main.entityElementsMap.put(entity,tmp);
         Main.activeElements.add(tmp);
         if(!unCheck)

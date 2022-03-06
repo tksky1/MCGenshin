@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -45,7 +46,14 @@ public class EventHandler implements Listener{
                     //下面要检查会否发生反应
             boolean hasFire = vision.element == 1;
             double newDamage = Checker.check(Main.entityElementsMap.get(e.getEntity()),e.getDamage(),vision.elementPower,hasFire,e.getDamager());
+            if(newDamage>50) newDamage = 50;
             if(newDamage>0) e.setDamage(newDamage);
+            if(newDamage>0){
+                ((Player)e.getDamager()).sendMessage("加成后总伤害："+newDamage);
+            }else{
+                ((Player)e.getDamager()).sendMessage("伤害："+e.getDamage());
+            }
+
         }else{
             //非玩家攻击了实体或玩家
             if(Main.entityElementsMap.containsKey(e.getDamager())){
@@ -134,6 +142,21 @@ public class EventHandler implements Listener{
                     e.getPlayer().getInventory().getItemInMainHand().setItemMeta(meta);
                     e.getPlayer().getInventory().setItemInOffHand(new ItemStack(Material.AIR));
                     e.getPlayer().sendMessage("§a成功将神之眼附魔到武器上！");
+                }
+            }
+        }
+    }
+
+    @org.bukkit.event.EventHandler
+    public void onPlace(BlockPlaceEvent e){
+        if(e.getItemInHand().getType()==Material.SUNFLOWER){
+            if(e.getItemInHand().getItemMeta().hasLore()){
+                List<String> lores= e.getItemInHand().getItemMeta().getLore();
+                for(String s: lores){
+                    if(s.contains("【神之眼】")){
+                        e.setCancelled(true);
+                        return;
+                    }
                 }
             }
         }

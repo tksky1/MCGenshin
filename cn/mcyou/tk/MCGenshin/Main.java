@@ -133,7 +133,7 @@ public class Main extends JavaPlugin {
                         tmp.set(2,50);
                         Elements.give(player,tmp,true,false);
                     }
-                    if(mat == Material.SNOW||mat==Material.SNOW_BLOCK){
+                    if(mat == Material.SNOW||mat==Material.SNOW_BLOCK||mat == Material.POWDER_SNOW){
                         Elements tmp = new Elements(player); //雪上挂冰
                         tmp.set(6,50);
                         Elements.give(player,tmp,true,false);
@@ -163,7 +163,7 @@ public class Main extends JavaPlugin {
                             tmp.set(2,50);
                             Elements.give(entity,tmp,true,false);
                         }
-                        if(mat == Material.SNOW||mat==Material.SNOW_BLOCK){
+                        if(mat == Material.SNOW||mat==Material.SNOW_BLOCK||mat == Material.POWDER_SNOW){
                             Elements tmp = new Elements(entity); //雪上挂冰
                             tmp.set(6,50);
                             Elements.give(entity,tmp,true,false);

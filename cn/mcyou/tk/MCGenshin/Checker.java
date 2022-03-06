@@ -14,7 +14,9 @@ public class Checker {
         //检查元素是否反应（非攻击导致）并执行，如果是非聚变反应则返回最终伤害值，否则返回0
         //涉及增加元素一定要check，不是giveElement就行了
         Main.activeElements.add(elements);
-
+        for(int i=1;i<=7;i++){
+            if(elements.get(i)>100) elements.set(i,100);
+        }
         if(elements.get(4)>0){ //超载超导
             if(elements.get(1)>0){ //超载
                 elements.owner.setFireTicks(0); //灭火
@@ -35,6 +37,7 @@ public class Checker {
             int wind = elements.get(3);
             elements.set(3,0);
             for(int i = 1;i<=6;i++){
+                if(i==3) continue;
                 if(elements.get(i)>0){
                     if(wind<50){ //弱扩散
                         elements.set(i,Math.max(elements.get(i)-50,0));
@@ -77,6 +80,9 @@ public class Checker {
     static double check(Elements elements, double damage, int elementPower,boolean hasFire,Entity damager){
         //检查元素是否反应（攻击导致）并执行，如果是非聚变反应则返回最终伤害值，否则返回0 hasFire为导致反应的攻击是否施加火附魔
         Main.activeElements.add(elements);
+        for(int i=1;i<=7;i++){
+            if(elements.get(i)>100) elements.set(i,100);
+        }
         if(elements.get(4)>0){ //超载超导
             if(elements.get(1)>0){ //超载
                 elements.show("超载");
@@ -94,17 +100,20 @@ public class Checker {
                             ((Player)damager).playSound(elements.owner.getLocation(), Sound.ENTITY_GENERIC_EXPLODE,10,29);
                     }
                 }
+                ((Player)damager).sendMessage("超载伤害：4");
                 //elements.owner.getWorld().createExplosion(elements.owner.getLocation(),1F,false,false,damager);
             }
 
             if(elements.get(4)>0&&elements.get(6)>0){ //超导
                 elements.show("超导");
+                elements.owner.setFireTicks(0); //灭火
                 int power = Math.min(elements.get(4),elements.get(6));
                 elements.set(6,elements.get(6)-power);
                 elements.set(4,elements.get(4)-power);
                 LivingEntity le = (LivingEntity) elements.owner;
                 le.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,100,2));
                 le.damage((double)power /50 *2* (double)elementPower/50 ,damager);
+                ((Player)damager).sendMessage("超导伤害："+(double)power /50 *2* (double)elementPower/50);
             }
         }
 
@@ -113,10 +122,12 @@ public class Checker {
             int wind = elements.get(3);
             elements.set(3,0);
             for(int i = 1;i<=6;i++){
+                if(i==3) continue;
                 if(elements.get(i)>0){
                     if(wind<50){ //弱扩散
                         elements.set(i,Math.max(elements.get(i)-50,0));
                         for(Entity entity : elements.owner.getNearbyEntities(4,4,4)){
+                            if(damager.equals(entity)) continue;
                             Elements newElement = new Elements(entity);
                             newElement.set(i,20);
                             Elements.give(entity,newElement,false,false);
@@ -124,6 +135,7 @@ public class Checker {
                     }else{ //强扩散
                         elements.set(i,0);
                         for(Entity entity : elements.owner.getNearbyEntities(4,4,4)){
+                            if(damager.equals(entity)) continue;
                             Elements newElement = new Elements(entity);
                             newElement.set(i,50);
                             Elements.give(entity,newElement,false,false);
