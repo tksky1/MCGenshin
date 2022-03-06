@@ -1,6 +1,9 @@
 package cn.mcyou.tk.MCGenshin;
 
+import org.bukkit.EntityEffect;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -15,6 +18,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class EventHandler implements Listener{
 
@@ -43,6 +48,18 @@ public class EventHandler implements Listener{
             Elements element = new Elements(e.getEntity());
             element.set(vision.element, vision.amount);
             Elements.give(e.getEntity(),element,false,true);
+            int chanceNow = (new Random()).nextInt(101);
+            if(chanceNow<=vision.burstChance){
+                for(Entity entity:e.getEntity().getNearbyEntities(2,2,2)){
+                    if(entity==e.getDamager()) continue;
+                    Elements element2 = new Elements(entity);
+                    element2.set(vision.element, vision.amount);
+                    Elements.give(entity,element2,false,true);
+                    Checker.check(Main.entityElementsMap.get(entity));
+                    entity.playEffect(EntityEffect.HURT_DROWN);
+                }
+                ((Player)e.getDamager()).playSound(e.getDamager().getLocation(),Sound.BLOCK_NOTE_BLOCK_BANJO,10,29);
+            }
                     //下面要检查会否发生反应
             boolean hasFire = vision.element == 1;
             double newDamage = Checker.check(Main.entityElementsMap.get(e.getEntity()),e.getDamage(),vision.elementPower,hasFire,e.getDamager());

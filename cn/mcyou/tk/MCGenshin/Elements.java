@@ -34,7 +34,7 @@ public class Elements {
         String s = "";
         for(int i =1;i<=7;i++){
             if(this.get(i)>0){
-                if(i==1) s+="§4火 ";
+                if(i==1) s+="§c火 ";
                 if(i==2) s+="§9水 ";
                 if(i==3) s+="§2风 ";
                 if(i==4) s+="§5雷 ";

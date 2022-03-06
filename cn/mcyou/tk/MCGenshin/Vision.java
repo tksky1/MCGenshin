@@ -11,6 +11,7 @@ public class Vision {
     public int amount;
     public double cd;
     public int elementPower;
+    public int burstChance; //元素爆发概率，和精通成反比
 
     Vision(int element, int amount, double cd, int elementPower){
         this.element = element;
@@ -48,6 +49,9 @@ public class Vision {
         tmp = lores.get(start+4);
         tmp = tmp.substring(7);
         vision.elementPower = Integer.parseInt(tmp);
+        tmp = lores.get(start+5);
+        tmp = tmp.substring(9);
+        vision.burstChance = Integer.parseInt(tmp);
         return vision;
     }
 }

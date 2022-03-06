@@ -40,7 +40,7 @@ class CommandHandler implements CommandExecutor {
                 int amount = random.nextInt(51)+25;
                 double cd = (double) amount/25 - 0.5;
                 int elementPower = random.nextInt(51)+25;
-                Vision newVision = new Vision(element, amount + random.nextInt(11)-5, cd+ random.nextDouble()-0.5, elementPower);
+                int burstChance = 100-elementPower-10;
                 ItemStack item = new ItemStack(Material.SUNFLOWER);
                 ItemMeta meta = item.getItemMeta();
                 meta.setDisplayName("§l§6「神之眼」");
@@ -49,7 +49,7 @@ class CommandHandler implements CommandExecutor {
                 s.add("§e不论如何，其凝聚的原初之力能赋予武器操纵元素的权能。");
                 s.add("§6§l【神之眼】属性：");
                 switch(element){
-                    case 1-> s.add("§l§4火");
+                    case 1-> s.add("§l§c火");
                     case 2-> s.add("§l§9水");
                     case 3-> s.add("§l§2风");
                     case 4-> s.add("§l§5雷");
@@ -58,6 +58,7 @@ class CommandHandler implements CommandExecutor {
                 s.add("§b单次附着量："+amount);
                 s.add("§9元素附着冷却："+cd);
                 s.add("§d元素精通："+elementPower);
+                s.add("§a元素爆发概率："+burstChance);
                 meta.setLore(s);
                 item.setItemMeta(meta);
                 for(Player p: Bukkit.getOnlinePlayers()){

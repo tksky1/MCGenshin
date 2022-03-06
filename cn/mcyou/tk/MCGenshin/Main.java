@@ -84,6 +84,16 @@ public class Main extends JavaPlugin {
                         elements.sub(4,1);
                         LivingEntity livingEntity = (LivingEntity) elements.owner;
                         livingEntity.damage(1);
+                        for(Entity entity: elements.owner.getNearbyEntities(1,1,1)){
+                            if(entityElementsMap.containsKey(entity)){
+                                Elements nowElement = entityElementsMap.get(entity);
+                                if(nowElement.get(4)==0){
+                                    if(nowElement.get(2)>0&&nowElement.get(2)>elements.get(4)){
+                                        nowElement.set(4,elements.get(4));
+                                    }
+                                }
+                            }
+                        }
                         elements.show( "感电");
                     }
 
