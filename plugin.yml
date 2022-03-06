@@ -1,0 +1,15 @@
+name: MCGenshin
+main: cn.mcyou.tk.MCGenshin.Main
+version: 1.0
+author: tk_sky
+commands:
+  mcgenshin:
+    description: 查看插件信息
+    usage: /mcgenshin
+  givevision:
+    description: 给予随机神之眼
+    usage: /givevision [player]
+    permission: mcgenshin.givevision
+  useVision:
+    description: 给予随机神之眼
+    usage: /useVision
