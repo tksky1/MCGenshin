@@ -100,7 +100,7 @@ public class Checker {
                             ((Player)damager).playSound(elements.owner.getLocation(), Sound.ENTITY_GENERIC_EXPLODE,10,29);
                     }
                 }
-                ((Player)damager).sendMessage("超载伤害：4");
+                //((Player)damager).sendMessage("超载伤害：4");
                 //elements.owner.getWorld().createExplosion(elements.owner.getLocation(),1F,false,false,damager);
             }
 
@@ -111,9 +111,9 @@ public class Checker {
                 elements.set(6,elements.get(6)-power);
                 elements.set(4,elements.get(4)-power);
                 LivingEntity le = (LivingEntity) elements.owner;
-                le.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,100,2));
+                le.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,200,2));
                 le.damage((double)power /50 *2* (double)elementPower/50 ,damager);
-                ((Player)damager).sendMessage("超导伤害："+(double)power /50 *2* (double)elementPower/50);
+                //((Player)damager).sendMessage("超导伤害："+(double)power /50 *2* (double)elementPower/50);
             }
         }
 

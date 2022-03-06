@@ -76,7 +76,7 @@ public class Elements {
     }
 
     static void give(Entity entity, Elements elements, boolean setMode, Boolean unCheck){
-        if(!(entity instanceof LivingEntity)) return;
+        if(!(entity instanceof LivingEntity) && entity.getType()!= EntityType.ARROW) return;
         for(int i=1;i<=7;i++){
             if(elements.get(i)>100) elements.set(i,100);
         }

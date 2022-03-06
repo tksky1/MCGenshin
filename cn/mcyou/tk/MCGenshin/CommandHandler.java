@@ -56,7 +56,7 @@ class CommandHandler implements CommandExecutor {
                     case 6-> s.add("§l§b冰");
                 }
                 s.add("§b单次附着量："+amount);
-                s.add("§9元素附着冷却："+cd);
+                s.add("§9元素附着冷却："+String.format("%.2f",cd));
                 s.add("§d元素精通："+elementPower);
                 s.add("§a元素爆发概率："+burstChance);
                 meta.setLore(s);
@@ -80,7 +80,7 @@ class CommandHandler implements CommandExecutor {
 
         if(command.getName().equalsIgnoreCase("usevision")){
             Player p = (Player)sender;
-            if(!p.getInventory().getItemInOffHand().hasItemMeta()||p.getInventory().getItemInOffHand().getType()!= Material.SUNFLOWER||p.getInventory().getItemInOffHand().getItemMeta().getLore().size()!=7){
+            if(!p.getInventory().getItemInOffHand().hasItemMeta()||p.getInventory().getItemInOffHand().getType()!= Material.SUNFLOWER||p.getInventory().getItemInOffHand().getItemMeta().getLore().size()!=8){
                 p.getPlayer().sendMessage("§c请把要附魔的神之眼放在副手！");
                 return true;
             }

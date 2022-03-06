@@ -1,7 +1,6 @@
 package cn.mcyou.tk.MCGenshin;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -14,7 +13,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentMap;
 
 public class Main extends JavaPlugin {
     static HashMap<Entity,Elements> entityElementsMap;

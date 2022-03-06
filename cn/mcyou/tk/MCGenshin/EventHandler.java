@@ -19,7 +19,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class EventHandler implements Listener{
 
@@ -54,22 +53,23 @@ public class EventHandler implements Listener{
                     if(entity==e.getDamager()) continue;
                     Elements element2 = new Elements(entity);
                     element2.set(vision.element, vision.amount);
+                    if(!Main.entityElementsMap.containsKey(entity)) Main.entityElementsMap.put(entity,element2);
                     Elements.give(entity,element2,false,true);
                     Checker.check(Main.entityElementsMap.get(entity));
                     entity.playEffect(EntityEffect.HURT_DROWN);
                 }
-                ((Player)e.getDamager()).playSound(e.getDamager().getLocation(),Sound.BLOCK_NOTE_BLOCK_BANJO,10,29);
+                ((Player)e.getDamager()).playSound(e.getDamager().getLocation(),Sound.ENTITY_GENERIC_EXPLODE,10,29);
             }
                     //下面要检查会否发生反应
             boolean hasFire = vision.element == 1;
             double newDamage = Checker.check(Main.entityElementsMap.get(e.getEntity()),e.getDamage(),vision.elementPower,hasFire,e.getDamager());
             if(newDamage>50) newDamage = 50;
             if(newDamage>0) e.setDamage(newDamage);
-            if(newDamage>0){
-                ((Player)e.getDamager()).sendMessage("加成后总伤害："+newDamage);
-            }else{
-                ((Player)e.getDamager()).sendMessage("伤害："+e.getDamage());
-            }
+            //if(newDamage>0){
+            //    ((Player)e.getDamager()).sendMessage("加成后总伤害："+newDamage);
+            //}else{
+            //    ((Player)e.getDamager()).sendMessage("伤害："+e.getDamage());
+            //}
 
         }else{
             //非玩家攻击了实体或玩家
@@ -132,7 +132,7 @@ public class EventHandler implements Listener{
                 if(e.getMessage().equals("确定")){
                     e.setCancelled(true);
                     CommandHandler.confirmMap.remove(e.getPlayer().getName());
-                    if(!e.getPlayer().getInventory().getItemInOffHand().hasItemMeta()||e.getPlayer().getInventory().getItemInOffHand().getType()!= Material.SUNFLOWER||e.getPlayer().getInventory().getItemInOffHand().getItemMeta().getLore().size()!=7){
+                    if(!e.getPlayer().getInventory().getItemInOffHand().hasItemMeta()||e.getPlayer().getInventory().getItemInOffHand().getType()!= Material.SUNFLOWER||e.getPlayer().getInventory().getItemInOffHand().getItemMeta().getLore().size()!=8){
                         e.getPlayer().sendMessage("§c请把要附魔的神之眼放在副手！");
                         return;
                     }
@@ -151,7 +151,7 @@ public class EventHandler implements Listener{
                         lore2 = e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore();
                     else
                         lore2 = new ArrayList<>();
-                    for(int i = 2;i<=6;i++){
+                    for(int i = 2;i<=7;i++){
                         lore2.add(lores.get(i));
                     }
                     ItemMeta meta =  e.getPlayer().getInventory().getItemInMainHand().getItemMeta();
