@@ -94,8 +94,9 @@ public class Checker {
                     ((LivingEntity)elements.owner).damage(4);
                     for(Entity e: elements.owner.getNearbyEntities(1,1,1)){
                         if(e.getType()!=EntityType.PLAYER){
-                            LivingEntity livingEntity = (LivingEntity)e;
-                            livingEntity.damage(4);
+                            if(e instanceof LivingEntity livingEntity){
+                                livingEntity.damage(4);
+                            }
                         }else
                             ((Player)damager).playSound(elements.owner.getLocation(), Sound.ENTITY_GENERIC_EXPLODE,10,29);
                     }

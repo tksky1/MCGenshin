@@ -72,16 +72,24 @@ public class Main extends JavaPlugin {
                         if(elements.sub(i,1)>0){
                             empty = false;
                             if(i==6){ //冰元素特性：减速
-                                LivingEntity livingEntity = (LivingEntity) elements.owner;
-                                livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,5,0));
+                                try{
+                                    LivingEntity livingEntity = (LivingEntity) elements.owner;
+                                    livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,5,0));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
                     if(elements.get(2)>0&&elements.get(4)>0){//感电
                         elements.sub(2,1);
                         elements.sub(4,1);
-                        LivingEntity livingEntity = (LivingEntity) elements.owner;
-                        livingEntity.damage(1);
+                        try{
+                            LivingEntity livingEntity = (LivingEntity) elements.owner;
+                            livingEntity.damage(1);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                         for(Entity entity: elements.owner.getNearbyEntities(1,1,1)){
                             if(entityElementsMap.containsKey(entity)){
                                 Elements nowElement = entityElementsMap.get(entity);
@@ -98,8 +106,13 @@ public class Main extends JavaPlugin {
                     if(elements.get(2)>0&&elements.get(6)>0){//冻结
                         elements.sub(2,1);
                         elements.sub(6,1);
-                        LivingEntity livingEntity = (LivingEntity) elements.owner;
-                        livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,5,4));
+                        try{
+                            LivingEntity livingEntity = (LivingEntity) elements.owner;
+                            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,5,4));
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                         elements.show( "冻结");
                     }
 
@@ -141,7 +154,7 @@ public class Main extends JavaPlugin {
                         tmp.set(2,50);
                         Elements.give(player,tmp,true,false);
                     }
-                    if(mat == Material.SNOW||mat==Material.SNOW_BLOCK||mat == Material.POWDER_SNOW){
+                    if(mat == Material.SNOW||mat==Material.SNOW_BLOCK){
                         Elements tmp = new Elements(player); //雪上挂冰
                         tmp.set(6,50);
                         Elements.give(player,tmp,true,false);
@@ -171,7 +184,7 @@ public class Main extends JavaPlugin {
                             tmp.set(2,50);
                             Elements.give(entity,tmp,true,false);
                         }
-                        if(mat == Material.SNOW||mat==Material.SNOW_BLOCK||mat == Material.POWDER_SNOW){
+                        if(mat == Material.SNOW||mat==Material.SNOW_BLOCK){
                             Elements tmp = new Elements(entity); //雪上挂冰
                             tmp.set(6,50);
                             Elements.give(entity,tmp,true,false);

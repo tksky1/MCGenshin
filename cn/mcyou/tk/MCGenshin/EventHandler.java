@@ -1,5 +1,6 @@
 package cn.mcyou.tk.MCGenshin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -12,6 +13,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -174,6 +176,18 @@ public class EventHandler implements Listener{
                         e.setCancelled(true);
                         return;
                     }
+                }
+            }
+        }
+    }
+
+    @org.bukkit.event.EventHandler
+    public void onItemChange(PlayerItemHeldEvent e){
+        if(e.getPlayer().getInventory().getItemInMainHand().getType()==Material.SUNFLOWER){
+            if(e.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()){
+                if(e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore().get(0).contains("拿在手中祈祷，或许会有好事发生")){
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"givevision "+e.getPlayer().getName());
+                    e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
                 }
             }
         }
