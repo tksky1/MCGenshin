@@ -174,7 +174,7 @@ public class EventHandler implements Listener{
             if(e.getItemInHand().getItemMeta().hasLore()){
                 List<String> lores= e.getItemInHand().getItemMeta().getLore();
                 for(String s: lores){
-                    if(s.contains("【神之眼】")){
+                    if(s.contains("【神之眼】")||s.contains("拿在手中祈祷，或许会有好事发生")){
                         e.setCancelled(true);
                         return;
                     }
