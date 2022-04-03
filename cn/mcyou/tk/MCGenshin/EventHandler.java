@@ -185,11 +185,12 @@ public class EventHandler implements Listener{
 
     @org.bukkit.event.EventHandler
     public void onItemChange(PlayerItemHeldEvent e){
-        if(e.getPlayer().getInventory().getItemInMainHand().getType()==Material.SUNFLOWER){
-            if(e.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()){
-                if(e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getLore().get(0).contains("拿在手中祈祷，或许会有好事发生")){
+        if(e.getPlayer().getInventory().getItem(e.getNewSlot())!=null)
+        if(e.getPlayer().getInventory().getItem(e.getNewSlot()).getType()==Material.SUNFLOWER){
+            if(e.getPlayer().getInventory().getItem(e.getNewSlot()).getItemMeta().hasLore()){
+                if(e.getPlayer().getInventory().getItem(e.getNewSlot()).getItemMeta().getLore().get(0).contains("拿在手中祈祷，或许会有好事发生")){
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"givevision "+e.getPlayer().getName());
-                    e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+                    e.getPlayer().getInventory().setItem(e.getNewSlot() ,new ItemStack(Material.AIR));
                 }
             }
         }
