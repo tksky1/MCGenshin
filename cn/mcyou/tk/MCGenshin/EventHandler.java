@@ -12,8 +12,10 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -190,6 +192,20 @@ public class EventHandler implements Listener{
                     e.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.AIR));
                 }
             }
+        }
+    }
+
+    @org.bukkit.event.EventHandler
+    public void onJoin(PlayerJoinEvent e){
+        if(!e.getPlayer().hasPlayedBefore()) Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"wkkit give new "+e.getPlayer().getName());
+    }
+
+    @org.bukkit.event.EventHandler
+    public void onPlayerDeath(PlayerDeathEvent e){
+        if(Main.entityElementsMap.containsKey(e.getEntity())){
+            Elements elements = Main.entityElementsMap.get(e.getEntity());
+            Main.activeElements.remove(elements);
+            Main.entityElementsMap.remove(e.getEntity());
         }
     }
 
