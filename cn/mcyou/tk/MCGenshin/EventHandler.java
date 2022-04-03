@@ -69,8 +69,8 @@ public class EventHandler implements Listener{
             double newDamage = Checker.check(Main.entityElementsMap.get(e.getEntity()),e.getDamage(),vision.elementPower,hasFire,e.getDamager());
             if(newDamage>50) newDamage = 50;
             if(newDamage>0) e.setDamage(newDamage);
-            //if(newDamage>0){
-            //    ((Player)e.getDamager()).sendMessage("加成后总伤害："+newDamage);
+            if(newDamage>0)
+                ((Player)e.getDamager()).sendMessage("§a触发了加成元素反应，造成总伤害："+newDamage);
             //}else{
             //    ((Player)e.getDamager()).sendMessage("伤害："+e.getDamage());
             //}
