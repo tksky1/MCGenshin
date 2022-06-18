@@ -28,7 +28,7 @@ public class Elements {
         this.owner = owner;
     }
 
-    void show(){
+    void show(){ //在生物头上展示附着元素
         Entity entity = this.owner;
         if(showingReaction) return;
         String s = "";
@@ -56,7 +56,7 @@ public class Elements {
 
     }
 
-    void show(String s){
+    void show(String s){ //在生物头上展示指定文字，比如感电
         Entity entity = this.owner;
         showingReaction = true;
         entity.setCustomName(s);
@@ -76,6 +76,7 @@ public class Elements {
     }
 
     static void give(Entity entity, Elements elements, boolean setMode, Boolean unCheck){
+        //供底层调用的元素附着，setMode==true表示是附着方式是覆盖而不是增加，uncheck用于玩家攻击导致附着时写true
         if(!(entity instanceof LivingEntity) && entity.getType()!= EntityType.ARROW) return;
         for(int i=1;i<=7;i++){
             if(elements.get(i)>100) elements.set(i,100);

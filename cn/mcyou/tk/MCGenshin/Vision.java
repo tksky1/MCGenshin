@@ -7,10 +7,10 @@ import java.util.Objects;
 
 public class Vision {
 
-    public int element;
-    public int amount;
+    public int element; //元素id
+    public int amount; //附着量
     public double cd;
-    public int elementPower;
+    public int elementPower; ///精通
     public int burstChance; //元素爆发概率，和精通成反比
 
     Vision(int element, int amount, double cd, int elementPower){

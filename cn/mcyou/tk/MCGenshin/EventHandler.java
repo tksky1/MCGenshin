@@ -27,7 +27,7 @@ import java.util.Random;
 public class EventHandler implements Listener{
 
     @org.bukkit.event.EventHandler
-    public void onWeatherChange(WeatherChangeEvent e){
+    public void onWeatherChange(WeatherChangeEvent e){ //雨天附水检测
         if(e.toWeatherState()&&e.getWorld().getName().equals("world")){
             Main.isRaining = true;
         }else{
@@ -38,21 +38,21 @@ public class EventHandler implements Listener{
     @org.bukkit.event.EventHandler
     public void onEntityAttack(EntityDamageByEntityEvent e){
         if(e.getDamager() instanceof Player){
-            //玩家攻击了实体或玩家
+            //玩家攻击了实体或玩家，注意玩家攻击导致的元素附着必须写uncheck=true，否则元素会被按自然反应处理掉
 
             Vision vision = Vision.get(((Player)e.getDamager()).getInventory().getItemInMainHand());
-            if(vision == null) return;
+            if(vision == null) return; //手上物品神之眼检测失败的return
             if(Main.playerCDMap.containsKey((Player)e.getDamager())){
                 if(Main.playerCDMap.get((Player)e.getDamager())>0) return;
             }else{
-                Main.playerCDMap.put((Player)e.getDamager(), vision.cd);
+                Main.playerCDMap.put((Player)e.getDamager(), vision.cd); //cd检测
                 Main.playerCDQueue.add((Player)e.getDamager());
             }
             Elements element = new Elements(e.getEntity());
             element.set(vision.element, vision.amount);
-            Elements.give(e.getEntity(),element,false,true);
+            Elements.give(e.getEntity(),element,false,true); //附元素
             int chanceNow = (new Random()).nextInt(101);
-            if(chanceNow<=vision.burstChance){
+            if(chanceNow<=vision.burstChance){  //随机元素爆发
                 for(Entity entity:e.getEntity().getNearbyEntities(2,2,2)){
                     if(entity==e.getDamager()) continue;
                     Elements element2 = new Elements(entity);
@@ -71,9 +71,6 @@ public class EventHandler implements Listener{
             if(newDamage>0) e.setDamage(newDamage);
             if(newDamage>0)
                 ((Player)e.getDamager()).sendMessage("§a触发了加成元素反应，造成总伤害："+newDamage);
-            //}else{
-            //    ((Player)e.getDamager()).sendMessage("伤害："+e.getDamage());
-            //}
 
         }else{
             //非玩家攻击了实体或玩家
@@ -84,7 +81,7 @@ public class EventHandler implements Listener{
                     boolean hasFire = Main.entityElementsMap.get(e.getDamager()).get(1) > 0;
                     double newDamage = Checker.check(Main.entityElementsMap.get(e.getEntity()),e.getDamage(),50,hasFire,e.getDamager());
                     if(newDamage>0) e.setDamage(newDamage);
-                    if(e.getDamager().getType()==EntityType.ARROW){
+                    if(e.getDamager().getType()==EntityType.ARROW){ //如果是弓箭的话要移除箭上的元素附着
                         Main.activeElements.remove(Main.entityElementsMap.get(e.getDamager()));
                         Main.entityElementsMap.remove(e.getDamager());
                     }
@@ -121,7 +118,7 @@ public class EventHandler implements Listener{
     }
 
     @org.bukkit.event.EventHandler
-    public void onFire(EntityDamageEvent e){
+    public void onFire(EntityDamageEvent e){ //着火则提供火附魔
         if(e.getCause()== EntityDamageEvent.DamageCause.FIRE){
             Elements tmp = new Elements(e.getEntity());
             tmp.set(1,50);
@@ -130,7 +127,7 @@ public class EventHandler implements Listener{
     }
 
     @org.bukkit.event.EventHandler
-    public void onChat(PlayerChatEvent e){
+    public void onChat(PlayerChatEvent e){ //确认绑定神之眼
         if(!CommandHandler.confirmMap.isEmpty()){
             if(CommandHandler.confirmMap.containsKey(e.getPlayer().getName())){
                 if(e.getMessage().equals("确定")){
@@ -169,7 +166,7 @@ public class EventHandler implements Listener{
     }
 
     @org.bukkit.event.EventHandler
-    public void onPlace(BlockPlaceEvent e){
+    public void onPlace(BlockPlaceEvent e){ //阻止神之眼被憨憨玩家放在地上
         if(e.getItemInHand().getType()==Material.SUNFLOWER){
             if(e.getItemInHand().getItemMeta().hasLore()){
                 List<String> lores= e.getItemInHand().getItemMeta().getLore();
@@ -184,7 +181,7 @@ public class EventHandler implements Listener{
     }
 
     @org.bukkit.event.EventHandler
-    public void onItemChange(PlayerItemHeldEvent e){
+    public void onItemChange(PlayerItemHeldEvent e){ //将未激活神之眼激活
         if(e.getPlayer().getInventory().getItem(e.getNewSlot())!=null)
         if(e.getPlayer().getInventory().getItem(e.getNewSlot()).getType()==Material.SUNFLOWER){
             if(e.getPlayer().getInventory().getItem(e.getNewSlot()).getItemMeta().hasLore()){
@@ -197,12 +194,12 @@ public class EventHandler implements Listener{
     }
 
     @org.bukkit.event.EventHandler
-    public void onJoin(PlayerJoinEvent e){
+    public void onJoin(PlayerJoinEvent e){ //这个是给引导书，正式版要删掉
         if(!e.getPlayer().hasPlayedBefore()) Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"wkkit give new "+e.getPlayer().getName());
     }
 
     @org.bukkit.event.EventHandler
-    public void onPlayerDeath(PlayerDeathEvent e){
+    public void onPlayerDeath(PlayerDeathEvent e){ //死后删除元素
         if(Main.entityElementsMap.containsKey(e.getEntity())){
             Elements elements = Main.entityElementsMap.get(e.getEntity());
             Main.activeElements.remove(elements);

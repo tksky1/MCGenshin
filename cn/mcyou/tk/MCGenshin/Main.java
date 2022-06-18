@@ -37,7 +37,7 @@ public class Main extends JavaPlugin {
         ElementNaturalCleaner = new BukkitRunnable() {
             @Override
             public void run() {
-
+                //自然消解进程
                 if(!CommandHandler.confirmMap.isEmpty()){
                     Iterator<Map.Entry<String, Integer>> entries = CommandHandler.confirmMap.entrySet().iterator();
                     while(entries.hasNext()){

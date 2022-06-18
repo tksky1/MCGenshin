@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Checker {
     static void check(Elements elements){
-        //检查元素是否反应（非攻击导致）并执行，如果是非聚变反应则返回最终伤害值，否则返回0
+        //检查元素是否反应（非攻击导致）并执行
         //涉及增加元素一定要check，不是giveElement就行了
         Main.activeElements.add(elements);
         for(int i=1;i<=7;i++){
@@ -102,7 +102,6 @@ public class Checker {
                     }
                 }
                 ((Player)damager).sendMessage("§a触发了超载反应，造成4点元素伤害！");
-                //elements.owner.getWorld().createExplosion(elements.owner.getLocation(),1F,false,false,damager);
             }
 
             if(elements.get(4)>0&&elements.get(6)>0){ //超导
